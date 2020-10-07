@@ -72,4 +72,14 @@ class City
     end
     trains
   end
+
+  # show all the trains of certain city 
+  # def trains_of_city()
+  #   city_trains = []
+
 end
+
+# SELECT trains.* FROM cities
+# JOIN stops ON (cities.id = stops.city_id)
+# JOIN trains ON (stops.train_id = train.id)
+# WHERE cities.id = #{@id}

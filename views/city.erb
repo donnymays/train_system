@@ -5,7 +5,8 @@
   <% if @city.trains %>
     <ul>
       <% @city.trains.each do |train| %>
-        <li><a href="/trains/<%= @train.id %>"<%= train.name %></a></li>
+        <li><a href="/trains/<%= @train.id %>"><%= @train.name %></a></li>
+        #/trains/12  Thomas
       <% end %>
     </ul>
   <% else %>
@@ -14,7 +15,7 @@
 
 <h4>Add a train:</h4>
 
-<form action="/cities/<%= @city.id %>/trains" method="post">
+<form action="/cities/<%= @city.id %>" method="post">
   <div class="form-group">
     <label for="train_name">train name</label>
     <input id="train_name" name="train_name" class="form-control" type="text">

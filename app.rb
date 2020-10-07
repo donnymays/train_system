@@ -35,6 +35,16 @@ get('/cities/:id') do
   erb(:city)
 end
 
+post('/cities/:id') do
+  @train = Train.new({:name => params[:train_name], :id => nil})
+  @train.save()
+  @city = City.find(params[:id].to_i())
+  @city.update(:train_name => params[:train_name])
+  @city.trains
+  #Display all trains that stop in this city
+  erb(:city)
+end
+
 get('/cities/:id/edit') do
   @city = City.find(params[:id].to_i())
   erb(:edit_city)
@@ -63,8 +73,8 @@ end
 
 post('/trains') do
   name = params[:train_name]
-  train = Train.new({:name => name, :id => nil})
-  train.save()
+  @train = Train.new({:name => name, :id => nil})
+  @train.save()
   @trains = Train.all()
   erb(:trains)
 end

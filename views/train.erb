@@ -5,7 +5,7 @@
   <% if @train.cities %>
     <ul>
       <% @train.cities.each do |city| %>
-        <li><a href="/cities/<%= @city.id %>"<%= city.name %></a></li>
+        <li><a href="/cities/<%= @city.id %>"<%= @city.name %></a></li>
       <% end %>
     </ul>
   <% else %>
@@ -21,8 +21,6 @@
   </div>
   <button type="submit" class="btn">Add city</button>
 </form>
-
-
 
 <p><a href="/trains/<%= @train.id %>/edit">Edit train</a></p>
 <p><a href="/trains">Return to train list</a></p>
