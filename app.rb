@@ -29,3 +29,25 @@ post('/cities') do
   @cities = City.all()
   erb(:cities)
 end
+
+get ('/cities/:id') do
+  @city = City.find(params[:id].to_i())
+  erb(:city)
+end
+
+get ('/cities/:id/edit') do
+  @city = City.find(params[:id].to_i())
+  erb(:edit_city)
+end
+
+patch ('/cities/:id') do
+  @city = City.find(params[:id].to_i())
+  @city.update(params[:name])
+  redirect to('/cities')
+end
+
+delete ('/cities/:id') do
+  @city = City.find(params[:id].to_i())
+  @city.delete()
+  redirect to('/cities')
+end
