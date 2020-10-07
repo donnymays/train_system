@@ -1,0 +1,15 @@
+<h1> Ultimate Train System </h1>
+
+<h3> Trains in our Network </h3>
+<hr>
+<% if @trains.any? %>
+  <ul>
+    <% @trains.each do |train| %>
+      <li><a href="/trains/<%= train.id %>"><%= train.name %></a></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>There are currently no trains to display.</p>
+<% end %>
+
+<a href="/trains/new">Add a new Train</a>

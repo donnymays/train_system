@@ -1,0 +1,28 @@
+<h2>train Name: <%= @train.name %></h2>
+
+<h3>Stops for this train</h3>
+
+  <% if @train.cities %>
+    <ul>
+      <% @train.cities.each do |city| %>
+        <li><a href="/cities/<%= @city.id %>"<%= city.name %></a></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>There are no cities listed for this train yet.</p>
+  <% end %>
+
+<h4>Add a city:</h4>
+
+<form action="/trains/<%= @train.id %>/cities" method="post">
+  <div class="form-group">
+    <label for="city_name">city name</label>
+    <input id="city_name" name="city_name" class="form-control" type="text">
+  </div>
+  <button type="submit" class="btn">Add city</button>
+</form>
+
+
+
+<p><a href="/trains/<%= @train.id %>/edit">Edit train</a></p>
+<p><a href="/trains">Return to train list</a></p>

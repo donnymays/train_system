@@ -27,3 +27,17 @@ describe('creates an individual city path', {:type => :feature}) do
     expect(page).to have_content('Return to City List')
   end
 end
+
+describe('creates a city edit path', {:type => :feature}) do
+  it('creates a new view when edit city is clicked on') do
+    visit('/cities')
+    click_on('Add a new City')
+    fill_in('city_name', :with => 'Atlanta')
+    click_on('Go!')
+    click_on('Atlanta')
+    click_on('Edit City')
+    fill_in('name', :with => 'Hotlanta')
+    click_on('Update')
+    expect(page).to have_content('Hotlanta')
+  end
+end
