@@ -49,9 +49,10 @@ class City
       DB.exec("UPDATE cities SET name = '#{@name}' WHERE id = #{@id};")
     elsif (attributes.has_key?(:train_name)) && (attributes.fetch(:train_name) != nil)
       train_name = attributes.fetch(:train_name)
+      time = attributes.fetch(:time)
       train = DB.exec("SELECT * FROM trains WHERE lower(name)='#{train_name.downcase}';").first
       if train != nil
-        DB.exec("INSERT INTO stops (train_id, city_id) VALUES (#{train['id'].to_i}, #{@id});")
+        DB.exec("INSERT INTO stops (train_id, city_id, time) VALUES (#{train['id'].to_i}, #{@id}, '#{time}');")
       end
     end
   end
@@ -63,23 +64,19 @@ class City
 
   def trains
     trains = []
-    results = DB.exec("SELECT train_id FROM stops WHERE city_id = #{@id};")
+    results = DB.exec("SELECT train_id, time FROM stops WHERE city_id = #{@id};")
     results.each() do |result|
       train_id = result.fetch("train_id").to_i()
+      time = result.fetch("time")
       train = DB.exec("SELECT * FROM trains WHERE id = #{train_id};")
       name = train.first().fetch("name")
-      trains.push(Train.new({:name => name, :id => train_id}))
+      array = []
+      array.push(Train.new({:name => name, :id => train_id}))
+      array.push(time)
+      trains.push(array)
     end
     trains
   end
-
-  # show all the trains of certain city 
-  # def trains_of_city()
-  #   city_trains = []
-
 end
 
-# SELECT trains.* FROM cities
-# JOIN stops ON (cities.id = stops.city_id)
-# JOIN trains ON (stops.train_id = train.id)
-# WHERE cities.id = #{@id}
+# trains[0].name -> name trains[1] -> time

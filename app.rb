@@ -39,9 +39,10 @@ post('/cities/:id') do
   @train = Train.new({:name => params[:train_name], :id => nil})
   @train.save()
   @city = City.find(params[:id].to_i())
-  @city.update(:train_name => params[:train_name])
+  time = params[:time]
+  @city.update({:train_name => params[:train_name], :time => time})
   @city.trains
-  #Display all trains that stop in this city
+  #Display all cities that this train stops in
   erb(:city)
 end
 
@@ -101,3 +102,12 @@ delete('/trains/:id') do
   redirect to('/trains')
 end
 
+post('/trains/:id') do
+  @city = City.new({:name => params[:city_name], :id => nil})
+  @city.save()
+  @train = Train.find(params[:id].to_i())
+  @train.update(:city_name => params[:city_name])
+  @train.cities
+  #Display all cities that this train stops in
+  erb(:train)
+end

@@ -64,7 +64,7 @@ describe('#City') do
       train = Train.new({:name => "Thomas the Train", :id => nil})
       train.save()
       # train.update({:train_name => "Polar Express"})
-      city.update({:train_name => "Thomas the Train"})
+      city.update({:train_name => "Thomas the Train", :time => Time.new})
       expect(city.trains).to(eq([train]))
     end
   end
